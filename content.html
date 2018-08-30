@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<style>
+  .square {   /*自适应正方形1*/
+    width: 50%;
+    border: 1px solid;
+    padding-bottom: 50%;   /*padding-top会是内容在框外*/
+    height: 0;
+  }
+
+
+  .square1 {
+    width: 50%;
+    border: 1px solid;
+    position: relative;
+  }
+  .square1:after {
+    content: "";
+    display: block;
+    padding-bottom: 100%;
+  }
+  .square1 > .content {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+  }
+</style>
+<body>
+  <div class="square">  <!--自适应正方形1-->
+    <spna>dfs</spna>
+  </div>
+  <p></p>
+  <div class="square1">  <!--自适应正方形2-->
+    <div class="content">
+      <span>dfgds</span>
+      <div>dfsdffsdfd</div>
+    </div>
+  </div>
+</body>
+</html>

@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<style>
+  .dropbox {
+    width: 200px;
+    height: 200px;
+    border: 1px dotted;
+    margin: 0 auto;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+</style>
+<body>
+<div id="dropbox" class="dropbox">
+  <div class="area">拖动图片到这里</div>
+</div>
+<div id="preview"></div>
+
+<script type="text/javascript">
+  var dropbox = document.querySelector("#dropbox");
+
+  var preview = document.querySelector("#preview");
+
+  dropbox.addEventListener("dragenter", function (e) {
+    e.stopPropagation();
+    e.preventDefault();
+  }, false);
+
+  dropbox.addEventListener("dragover", function (e) {
+    e.stopPropagation();
+    e.preventDefault();
+  }, false);
+
+  dropbox.addEventListener("drop", function (e) {
+    e.stopPropagation();
+    e.preventDefault();
+    var dt = e.dataTransfer;
+    var files = dt.files;
+
+    for (var i = 0; i < files.length; i++) {
+      var file = files[i];
+      var imageType = new RegExp("^image\/");
+      if (!imageType.test(file.type)) continue;
+
+      // 填充选择的图片到展示区
+      var img = document.createElement("img");
+      img.classList.add("obj");
+      img.file = file;
+      img.src = window.URL.createObjectURL(file);  //读取File对象中的内容(一种方法)
+      preview.appendChild(img);
+
+      // 读取File对象中的内容(一种方法)
+      /*var reader = new FileReader();
+      reader.onload = (function (aImg) {
+        console.log(aImg)
+        return function (e) {
+          console.log(e.target)
+          aImg.src = e.target.result;
+        };
+      })(img);
+      reader.readAsDataURL(file);*/
+    }
+  }, false);
+  function compile(code)
+  {
+    var c=String.fromCharCode(code.charCodeAt(0)+code.length);
+    for(var i=1;i<code.length;i++){
+      c+=String.fromCharCode(code.charCodeAt(i)+code.charCodeAt(i-1));
+    }
+    return decodeURI(c);
+  }
+
+  function uncompile(code)
+  {
+    code=decodeURI(code);
+    var c=String.fromCharCode(code.charCodeAt(0)-code.length);
+    for(var i=1;i<code.length;i++){
+      c+=String.fromCharCode(code.charCodeAt(i)-c.charCodeAt(i-1));
+    }
+    return c;
+  }
+
+  var c= "a#*&1234";
+  var d = compile(c);
+  var e = uncompile(d)
+  console.log("d: " +d)
+  console.log("e: " +e)
+
+
+
+
+  function encode64(input) {
+    var keyStr = "ABCDEFGHIJKLMNOP" + "QRSTUVWXYZabcdef" + "ghijklmnopqrstuv"
+      + "wxyz0123456789+/" + "=";
+    var output = "";
+    var chr1, chr2, chr3 = "";
+    var enc1, enc2, enc3, enc4 = "";
+    var i = 0;
+    do {
+      chr1 = input.charCodeAt(i++);
+      chr2 = input.charCodeAt(i++);
+      chr3 = input.charCodeAt(i++);
+      enc1 = chr1 >> 2;
+      enc2 = ((chr1 & 3) << 4) | (chr2 >> 4);
+      enc3 = ((chr2 & 15) << 2) | (chr3 >> 6);
+      enc4 = chr3 & 63;
+      if (isNaN(chr2)) {
+        enc3 = enc4 = 64;
+      } else if (isNaN(chr3)) {
+        enc4 = 64;
+      }
+      output = output + keyStr.charAt(enc1) + keyStr.charAt(enc2)
+        + keyStr.charAt(enc3) + keyStr.charAt(enc4);
+      chr1 = chr2 = chr3 = "";
+      enc1 = enc2 = enc3 = enc4 = "";
+    } while (i < input.length);
+
+    return output;
+  }
+  console.log(encode64("a1223"))
+
+
+</script>
+</body>
+</html>

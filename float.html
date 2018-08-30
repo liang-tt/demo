@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<style>
+  #content {
+    text-indent: 2em;
+    box-shadow: 0px 0px 10px #999;
+    padding: 10px;
+    font-size: 12px;
+    line-height: 1.5;
+    border-radius: 5px;
+    height: 100px;
+    width: 250px;
+    position: relative;
+    margin: 200px auto;
+    border: 1px solid #CCC;
+  }
+  span {
+    position: absolute;
+    left: 25px;
+    height: 0px;
+    width: 0px;
+  }
+  /*上部小三角实现样式开始*/
+  span.out {
+    line-height: 0;
+    border-width: 10px;
+    border-color: transparent transparent #CCC transparent;
+    border-style: dashed dashed solid dashed;
+    top: -20px;
+  }
+  span.iner {
+    border-width: 10px;
+    border-color: #fff transparent #FFF transparent;
+    border-style: dashed dashed solid dashed;
+    top: -19px;
+    line-height: 0;
+  }
+  /*右部小三角实现样式开始*/
+  span.right {
+    background: #FFF;
+    border-width: 1px;
+    width: 16px;
+    height: 16px;
+    border-color: #CCC #CCC transparent transparent;
+    border-style: solid solid dashed dashed;
+    left: 270px;
+    top: 30px;
+    border-radius: 0 0 100% 0;/*这里radius的值不要选取绝对值因为在放大或者缩小的过程中会产生封不住口的现象*/
+    line-height: 0;
+    box-shadow: 5px 0 10px #aaa;
+  }
+  .trangle {
+    margin: 0 auto;
+    position: relative;
+    width: 200px;
+    height: 200px;
+    border: 1px solid #ccc;
+    text-align: center;
+    line-height: 200px;
+  }
+  .trangle:after {
+    content: "";
+    height: 0;
+    width: 0;
+    border-style: dashed solid dashed dashed;
+    border-color: transparent #ccc transparent transparent;
+    border-width: 10px;
+    right: 100%;
+    position: absolute;
+    top: 45%;
+  }
+</style>
+<body>
+  <div>
+    <div style="float:left;border: 1px solid;" align="center">
+      <img src="src/assets/logo.png" hspace="8" width="80">
+    </div>
+
+      <!--<div style="float:left; clear: both;" align="center">
+        <img src="src/assets/logo.png" width="120" alt="" hspace="8"><br /> 图像标题
+      </div>-->
+      CSS文字环绕图片布局CSS文字环绕图片布局CSS文字环绕图片布局CSS文字环绕图片布局CSS文字环绕图片布局CSS文字环绕图片布局CSS文字环绕图片布局CSS文字环绕图片布局CSS文字环绕图片布局CSS文字环绕图片布局CSS文字环绕图片布局CSS文字环绕图片布局CSS文字环绕图片布局CSS文字环绕图片布局CSS文字环绕图片布局
+
+    dsfhsdhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhh的粉红色的大多数是对话地上附属地发挥的速发货速度飞机打碎都是废话
+  </div>
+  <div id="content"> <span class="out"></span><span class="iner"></span> <span class="right"></span>
+    <p>不管写什么内容，总之就是要实现无图小三角，要是有背景颜色那倒是极好的，没有的话也可以，就是稍微麻烦一点</p>
+  </div>
+
+  <div class="trangle">钉钉</div>
+</body>
+</html>
