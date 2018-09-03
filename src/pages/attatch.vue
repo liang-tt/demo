@@ -55,7 +55,7 @@
           this.axios.defaults.headers.token = "eyJhbGciOiJIUzUxMiJ9.eyJjcmVhdGVkIjoxNTI4MTc3NTY5MDMyLCJleHAiOjE1Mjg3ODIzNjksInVzZXJuYW1lIjoibGFuY2UifQ.JgqlM_6wyrmpYO7xTa5xJqJEyIfOBj1iDW97FRYjrygZsRBolGSZXZTdbHG4NR3ckBctHLlJvOWKJuxVSmgq6g";
           this.axios({
             method: "post",
-            baseURL: "http://t.zuul.xinchao.mobi/crm/api/",
+            baseURL: "",
             url: "common/getOSSToken"
           }).then(data => {
             /*if(data.status) {
@@ -91,12 +91,12 @@
             // this.axios.defaults.headers.token = "eyJhbGciOiJIUzUxMiJ9.eyJjcmVhdGVkIjoxNTI4MTc3NTY5MDMyLCJleHAiOjE1Mjg3ODIzNjksInVzZXJuYW1lIjoibGFuY2UifQ.JgqlM_6wyrmpYO7xTa5xJqJEyIfOBj1iDW97FRYjrygZsRBolGSZXZTdbHG4NR3ckBctHLlJvOWKJuxVSmgq6g";
             this.axios({
               method: "post",
-              // baseURL: "http://t.zuul.xinchao.mobi/crm/api/",
+              // baseURL: "",
               url: this.host,
               data: this.request
             }).then(data => {
               console.log(data)
-              console.log("http://blmdsp.oss-cn-hangzhou.aliyuncs.com/"+this.g_object_name)
+              console.log("地址"+this.g_object_name)
             }).catch(res => {
 
             })
