@@ -8,6 +8,7 @@ import Tabs from '@/pages/tabs'
 import Attatch from '@/pages/attatch'
 import Ueditor from '@/pages/ueditor'
 import Test from '@/pages/test'
+import AreaLine from '@/pages/areaLine'
 
 Vue.use(Router)
 
@@ -125,6 +126,21 @@ const asyncRouterMap = [
         path: '/ueditor',
         name: 'ueditor',
         component: Test
+      }
+    ]
+  },
+  {
+    path: '/nemuFour',
+    component:Home ,
+    redirect: '/areaLine',
+    meta: {
+      title: "折线图"
+    },
+    children: [
+      {
+        path: '/areaLine',
+        name: 'areaLine',
+        component: AreaLine
       }
     ]
   }

@@ -20,6 +20,9 @@
           <router-link to="/ueditor">
             <el-menu-item index="/ueditor">富文本编辑</el-menu-item>
           </router-link>
+          <router-link to="/areaLine">
+            <el-menu-item index="/areaLine">折线图</el-menu-item>
+          </router-link>
         </el-menu>
       </div>
   <!--</el-aside>-->
