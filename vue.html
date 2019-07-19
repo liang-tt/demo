@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>vue双向绑定</title>
+</head>
+<body>
+  <div id="app">
+    <div v-text="myText"></div>
+    <div v-text="myModel"></div>
+    <input v-model="myText"></input>
+    <button v-click="changeValue">改变model的值</button>
+  </div>
+  <script>
+    class Vue {
+      constructor(options) {
+        this.options = options;
+        this.$el = document.querySelector(options.el);
+        this.$data = options.data;
+        this.$methods = options.methods;
+
+        this._directive = {};
+
+        this.Observer(this.$data);
+        this.Compile(this.$el);
+      }
+
+      Observer(data) {
+        Object.keys(data).forEach(key => {
+            this._directive[key] = [];
+            let val = data[key];
+            let watchs = this._directive[key];
+            Object.defineProperty(data, key , {
+                get() {
+                    return val;
+                },
+                set(newValue) {
+                    if(newValue !== val) {
+                        val = newValue;
+                        for(const watch of watchs) {
+                            watch.update();
+                        }
+                    }
+                }
+            })
+        })
+      }
+
+      Compile($el) {
+        let nodes = $el.children;
+
+        for(const ele of nodes) {
+          if(ele.children.length) {
+            this.Compile(ele)
+          }
+
+          if(ele.hasAttribute('v-text')) {
+            let attrVal = ele.getAttribute('v-text');
+            this._directive[attrVal].push(
+              new Watcher(ele, this,attrVal, 'innerHTML')
+            )
+          }
+
+          if(ele.hasAttribute('v-model')) {
+            let attrVal = ele.getAttribute('v-model');
+            this._directive[attrVal].push(   //input初始化
+              new Watcher(ele, this,attrVal, 'value')
+            );
+            ele.addEventListener(
+                'input',
+                function() {
+                    this.$data[attrVal] = ele.value
+                }.bind(this),false
+            )
+
+          }
+
+          if(ele.hasAttribute('v-click')) {
+              let attrVal = ele.getAttribute('v-click');
+              ele.addEventListener(
+                  'click',
+                  this.$methods[attrVal].bind(this.$data),
+                  false
+              )
+            
+          }
+
+        }
+      }
+
+    }
+
+    class Watcher {
+      constructor(node, vm, attr, exp) {
+        this.node = node;
+        this.vm = vm;
+        this.attr = attr;
+        this.exp = exp;
+        this.update();
+      }
+
+      update() {
+        this.node[this.exp] = this.vm.$data[this.attr]
+      }
+    }
+
+    const app = new Vue ({
+      el: "#app",
+      data: {
+        myText: '我是v-model',
+        myModel: '我是v-text'
+      },
+      methods: {
+        changeValue() {
+            console.log(343)
+            this.myText = '34243';
+            this.myModel = '点击事件测试';
+        }
+      }
+    });
+  </script>
+</body>
+</html>

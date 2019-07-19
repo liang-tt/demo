@@ -2,8 +2,7 @@
 // (runtime-only or standalone) has been set in webpack.base.conf with an alias.
 import Vue from 'vue'
 import App from './App'
-import axios from 'axios'
-import VueAxios from 'vue-axios'
+import axios from './common/axios'
 import router from './router'
 import store from './store/store'
 import Element from 'element-ui'
@@ -12,9 +11,9 @@ import './css/common.scss'
 import echarts from 'echarts'
 
 Vue.config.productionTip = false
-
+Element.Dialog.props.closeOnClickModal.default = false;  //模态框点击遮罩层不关闭
 Vue.use(Element)
-Vue.use(VueAxios,axios)
+Vue.prototype.$https = axios;
 Vue.prototype.$echarts = echarts
 /* eslint-disable no-new */
 

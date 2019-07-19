@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>复制</title>
+</head>
+<body>
+  <div id="mydiv">
+    <button id="btn">点击</button>
+  </div>
+  <div>
+    <span id="copyTxt">4357888888cess</span>
+    <span id="copyBtn" onclick="copy(435788888888888888884)">复制</span>
+  </div>
+</body>
+<script>
+  function copy(txt) {
+    console.log(txt);
+
+    // var Url2=document.getElementById("copyTxt").innerText;
+    // var oInput = document.createElement('input');
+    // oInput.value = Url2;
+    //
+    // document.body.appendChild(oInput);
+    //
+    // oInput.select(); // 选择对象
+    // document.execCommand("Copy"); // 执行浏览器复制命令
+    // oInput.className = 'oInput';
+    // oInput.style.display = 'none';
+    // document.body.removeChild(oInput);
+
+    // var txt=document.getElementById("copyTxt").innerText;
+    const input = document.createElement('input');
+    input.setAttribute('readonly', 'readonly');  //input设置只读，ios就不会拉起键盘
+    input.setAttribute('value', txt);
+    document.body.appendChild(input);
+    if (input.select()) {
+      input.select();
+    } else {
+      input.setSelectionRange(0, 9999); //选中内容
+    }
+    if (document.execCommand('copy')) {
+      document.execCommand('copy');
+      console.log('复制成功')
+    }
+    input.style.display = 'none';
+    document.body.removeChild(input);
+
+
+  }
+  function handleResponse(response){
+    console.log(response);
+  }
+  window.onload = function() {
+
+    var oBtn = document.getElementById('btn');
+
+    oBtn.onclick = function() {
+
+      var script = document.createElement("script");
+      script.src = "https://api.douban.com/v2/book/search?q=javascript&count=1&callback=handleResponse";
+      document.body.insertBefore(script, document.body.firstChild);
+    };
+  };
+  function Foo(){
+    getName = function () {
+      console.log(1);
+    }
+    console.log(this)
+    return this
+
+  }
+  Foo.getName = function () {
+    console.log(2)
+  }
+  Foo.prototype.getName = function () {
+    console.log(3)
+  }
+  var getName = function () {
+    console.log(4)
+  }
+  function getName() {
+    console.log(5)
+  }
+  Foo.getName();//2
+  getName();//4
+  Foo().getName();//1
+  getName();//1
+  new Foo.getName();//2
+  new  Foo().getName();//3
+  new  new  Foo().getName();//3
+</script>
+</html>
