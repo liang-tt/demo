@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>纯CSS实现动态晴阴雨雪</title>
+</head>
+<style>
+  .wether {
+    position: relative;
+    width: 180px;
+    height: 240px;
+    background: #23b7e5;
+    border-radius: 8px;
+    display: inline-block;
+  }
+  .sunny:before {
+    content: '';
+    position: absolute;
+    width: 60px;
+    height: 60px;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+    border-radius: 50%;
+    background-color: #F6D963;
+    z-index: 2;
+    box-shadow: 0 0 20px #ff0;
+  }
+  .cloudy:before, .rainy:before {
+    content: '';
+    position: absolute;
+    width: 36px;
+    height: 36px;
+    top: 50%;
+    left: 25%;
+    transform: translate(-50%,-50%);
+    border-radius: 50%;
+    background-color: #fff;
+    box-shadow:
+      22px -15px 0 6px #fff,
+      50px -8px 0 4px #fff,
+      75px 6px 0 -4px #fff,
+      30px 10px 0 6px #fff,
+      50px 5px 0 6px #fff,
+      30px -20px 0 6px #ccc,
+      58px -13px 0 4px #ccc,
+      83px -1px 0 -4px #ccc;
+  }
+  .cloudy:before {
+    animation: coludyMove 3s infinite;
+  }
+  @keyframes coludyMove {
+    0% {
+      transform: translate(-50%,-50%);
+    }
+    50% {
+      transform: translate(-50%,-70%);
+    }
+    100% {
+      transform: translate(-50%,-50%);
+    }
+  }
+
+  .rainy:after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 25%;
+    width: 5px;
+    height: 13px;
+    background: #fff;
+    border-radius: 3px;
+    box-shadow:
+      20px 0 #fff,
+      40px 0 #fff,
+      60px 0 #fff,
+      0 20px #fff,
+      20px 20px #fff,
+      40px 20px #fff,
+      60px 20px #fff,
+      0 40px #fff,
+      20px 40px #fff,
+      40px 40px #fff,
+      60px 40px #fff;
+    animation: rainyMove 2s linear infinite;
+  }
+  @keyframes rainyMove {
+    0% {
+      transform: translate(0, 0) rotate(10deg);
+    }
+    100% {
+      transform: translate(-4px, 20px) rotate(10deg);
+      box-shadow:
+        20px 0 #fff,
+        40px 0 #fff,
+        60px 0 #fff,
+        0 20px #fff,
+        20px 20px #fff,
+        40px 20px #fff,
+        60px 20px #fff,
+        0 40px rgba(255,255,255, 0),
+        20px 40px rgba(255,255,255, 0),
+        40px 40px rgba(255,255,255, 0),
+        60px 40px rgba(255,255,255, 0);
+    }
+  }
+</style>
+<body>
+  <div class="wether sunny"></div>
+  <div class="wether cloudy"></div>
+  <div class="wether rainy"></div>
+  <div class="wether"></div>
+</body>
+
+</html>
