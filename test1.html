@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<style>
+  :target
+  {
+    border: 2px solid #D4D4D4;
+    background-color: #e5eecc;
+  }
+</style>
+</head>
+<body>
+<p onclick="down('https://obs.cn-east-2.myhuaweicloud.com/one-account/XC06675/1576231253187/UPKNytTa9Qep7fO.jpg')">图片下载</p>
+<h1>This is a heading</h1>
+
+<p><a href="#news1" onclick="return false">Jump to New content 1</a></p>
+<p><a href="#news2" onclick="return false">Jump to New content 2</a></p>
+
+<p>Click on the links above and the :target selector highlight the current active HTML anchor.</p>
+
+<p id="news1"><b style="display:block;height: 900px">New content 1...</b></p>
+<p id="news2"><b>New content 2...</b></p>
+
+<script>
+  function DownloadImg() {
+    this.frame = null; //
+    this.isIE = !!window.ActiveXObject || ("ActiveXObject" in window);
+  }
+  /**
+   *@param clickId a标签的id值
+   *@param imgUrl 要下载的图片的路径
+   */
+  DownloadImg.prototype.init = function(clickId, imgUrl) {
+    var oA = document.getElementById(clickId),
+      that = this;
+    /*检测是否为同源图片*/
+    var imgHost, localHost = location.host,
+      doubleIndex = imgUrl.indexOf('//');
+    if (doubleIndex != -1) {
+      imgHost = imgUrl.substring(doubleIndex + 2, imgUrl.indexOf(doubleIndex + 2));
+      if (imgHost != localHost) { //如果图片非同源
+        oA.href = imgUrl;
+        return;
+      }
+    }
+    /*检测是否为同源图片end*/
+    if (that.isIE) { //如果是IE浏览器，使用方法二
+      oA.onclick = function() {
+        that.createIframe(imgUrl);
+      }
+    } else { //如果是非IE浏览器，使用方法一
+      oA.download = imgUrl.substring(imgUrl.lastIndexOf('/') + 1);
+      oA.href = imgUrl;
+    }
+  }
+  DownloadImg.prototype.createIframe = function(imgUrl) {
+    var that = this;
+    //如果隐藏的iframe不存在则创建
+    if (!this.frame) {
+      var oBody = document.getElementsByTagName('body')[0],
+        frame = document.createElement('iframe');
+      frame.style.display = 'none';
+      frame.name = 'downloadIframe';//在IE7下设置好的name属性会变成submitName，用setAttribute设置也是同样效果，待解决
+      frame.width = 0;
+      frame.height = 0;
+      this.frame = frame;
+      // this.frame.onload = this.downloadImg();//这种方式绑定会有问题，待解决
+
+      this.addEvent(this.frame, 'load', function() { //给iframe绑定一个load方法，load完成便会触发下载方法
+        that.downloadImg();
+      })
+      oBody.appendChild(this.frame); //将创建的iframe添加到body中
+    }
+    if (this.frame.src != imgUrl) { //如果本次要下载的图片路径不等于上一次下载的图片路径，那么对iframe进行重新赋值，那么又将会触发load事件，从而间接的触发下载事件
+      this.frame.src = imgUrl;
+    } else { //如果本次要下载的图片路径等于上一次下载的图片路径，直接调用下载图片方法
+      this.downloadImg();
+    }
+  }
+  DownloadImg.prototype.downloadImg = function() {
+    if (this.frame.src != '' && this.frame.src != 'about:blank') { //如果iframe的src路径存在那么调用下载浏览器的保存方法
+      window.frames["downloadIframe"].document.execCommand("SaveAs");
+    }
+  }
+  DownloadImg.prototype.addEvent = function(el, eventType, handler) { //事件兼容
+    if (el.attachEvent) {
+      el.attachEvent('on' + eventType, handler);
+    } else if (el.addEventListener) {
+      el.addEventListener(eventType, handler, false);
+    } else {
+      el['on' + eventType] = handler;
+    }
+  }
+  //实例化这个工具类
+  var downloadImg = new DownloadImg();
+
+  //传入a标签的id，和要分别下载的图片地址进行初始化
+  downloadImg.init('download', 'https://gss0.bdstatic.com/5bVWsj_p_tVS5dKfpU_Y_D3/res/r/image/2017-09-27/297f5edb1e984613083a2d3cc0c5bb36.png');
+  downloadImg.init('download1', './imgs/1.png');
+
+  function down(url) {
+    // 创建隐藏的可下载链接
+    let eleLink = document.createElement('a')
+    eleLink.download = 'a';
+    eleLink.style.display = 'none';
+    eleLink.href=url;
+    // 字符内容转变成blob地址
+    let blob = new Blob(eleLink)
+    eleLink.href = URL.createObjectURL(blob)
+    // 触发点击
+    document.body.appendChild(eleLink)
+    eleLink.click()
+    // 然后移除
+    document.body.removeChild(eleLink)
+  }
+</script>
+</body>
+</html>

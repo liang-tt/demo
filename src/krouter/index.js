@@ -1,5 +1,5 @@
 import Vue from 'vue'
-import Router from 'vue-router'
+import Router from './kvue-router'
 
 import Home from '@/views/home'
 import Lists from '@/pages/lists'
@@ -23,6 +23,13 @@ const constantRouterMap = [
     }
   },
   {
+    path: '/login1',
+    component: AreaLine,
+    meta: {
+      notRequireAuth: true    //不需要登录
+    }
+  },
+  {
     path: '/',
     component: Home,
     redirect: '/lists',
@@ -36,10 +43,6 @@ const constantRouterMap = [
         }
       }
     ]
-  },
-  {
-    path: '*',
-    component: resolve => require(['@/views/notFound'], resolve),
   }
 ];
 
@@ -166,30 +169,8 @@ const asyncRouterMap = [
   }
 ];
 
-const moicroRouter = [
-  {
-    path: '/vueMicroDemo/vueMicDemo1',
-    component: Home,
-    redirect: '/vueMicroDemo/vueMicDemo1/page1',
-    meta: {
-      title: "vueMic列表"
-    },
-    children: [
-      {
-        path: 'page1',
-        name: 'page1',
-        component: Page1,
-        meta: {
-          role: ["admin","editor"]
-        }
-      },
-    ]
-  },
-]
-
 const router = new Router({
-  base: window.__POWERED_BY_QIANKUN__ ? '/' : '/',
-  routes: [...constantRouterMap,...asyncRouterMap, ...moicroRouter]
+  routes: [...constantRouterMap,...asyncRouterMap]
 })
 
 /*const router = new Router({
@@ -257,13 +238,13 @@ const router = new Router({
 
 // })
 
-router.afterEach((to) => {
-  /* 路由发生变化修改页面title */
-  // if (to.meta.title) {
-  //   changTitle(to.meta.title);
-  // }
-  Watermark.set("XC04441")
-});
+// router.afterEach((to) => {
+//   /* 路由发生变化修改页面title */
+//   // if (to.meta.title) {
+//   //   changTitle(to.meta.title);
+//   // }
+//   Watermark.set("XC04441")
+// });
 
 
 export default router

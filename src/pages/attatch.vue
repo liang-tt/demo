@@ -52,11 +52,13 @@
         //获取认证信息
         getToken (file) {
           console.log(file)
-          this.axios.defaults.headers.token = "eyJhbGciOiJIUzUxMiJ9.eyJjcmVhdGVkIjoxNTI4MTc3NTY5MDMyLCJleHAiOjE1Mjg3ODIzNjksInVzZXJuYW1lIjoibGFuY2UifQ.JgqlM_6wyrmpYO7xTa5xJqJEyIfOBj1iDW97FRYjrygZsRBolGSZXZTdbHG4NR3ckBctHLlJvOWKJuxVSmgq6g";
-          this.axios({
+          // this.axios.defaults.headers.token = "eyJhbGciOiJIUzUxMiJ9.eyJjcmVhdGVkIjoxNTI4MTc3NTY5MDMyLCJleHAiOjE1Mjg3ODIzNjksInVzZXJuYW1lIjoibGFuY2UifQ.JgqlM_6wyrmpYO7xTa5xJqJEyIfOBj1iDW97FRYjrygZsRBolGSZXZTdbHG4NR3ckBctHLlJvOWKJuxVSmgq6g";
+          this.$https({
             method: "post",
-            baseURL: "http://t.zuul.xinchao.mobi/crm/api/",
-            url: "common/getOSSToken"
+            url: "common/getOSSToken",
+            headers: {
+              "content-type": "multipart/form-data"
+            }
           }).then(data => {
             /*if(data.status) {
               return data.data;
@@ -89,7 +91,7 @@
             this.request.append("callback",this.callbackbody);//回调,可有可无
 
             // this.axios.defaults.headers.token = "eyJhbGciOiJIUzUxMiJ9.eyJjcmVhdGVkIjoxNTI4MTc3NTY5MDMyLCJleHAiOjE1Mjg3ODIzNjksInVzZXJuYW1lIjoibGFuY2UifQ.JgqlM_6wyrmpYO7xTa5xJqJEyIfOBj1iDW97FRYjrygZsRBolGSZXZTdbHG4NR3ckBctHLlJvOWKJuxVSmgq6g";
-            this.axios({
+            this.$https({
               method: "post",
               // baseURL: "http://t.zuul.xinchao.mobi/crm/api/",
               url: this.host,

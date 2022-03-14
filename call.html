@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>call</title>
+</head>
+<body>
+  <div>
+  </div>
+</body>
+<script>
+
+function callMethod(obj, method) {
+  console.log(arguments)
+  var args = [].slice.call(arguments,2);  //slice复制了一个新数组
+  return obj[method].apply(obj, args);
+}
+var obj = {
+  add(x,y) {
+    return x + y;
+  }
+}
+let result = callMethod(obj, 'add',17,5);
+console.log(result)
+</script>
+</html>

@@ -23,6 +23,12 @@
           <router-link to="/areaLine">
             <el-menu-item index="/areaLine">折线图</el-menu-item>
           </router-link>
+          <router-link to="/formTest">
+            <el-menu-item index="/formTest">表单</el-menu-item>
+          </router-link>
+          <router-link to="/vueMicroDemo/vueMicDemo1/page1">
+            <el-menu-item index="/vueMicDemo1/page1">vueMic列表</el-menu-item>
+          </router-link>
         </el-menu>
       </div>
   <!--</el-aside>-->

@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>进度条(css变量)</title>
+</head>
+<style >
+:root {
+  --progress1: 0%;
+  --progress2: 0%;
+  --progressCircle1: 0%;
+}
+.progress1 {
+  width: 200px;
+  height: 20px;
+  background-color: #888;
+}
+.progress1-in {
+  height: 100%;
+  background-color: aqua;
+  width: var(--progress1);
+}
+.progress2 {
+    width: 200px;
+    height: 20px;
+    border: 1px solid;
+    background: linear-gradient(90deg, #0ff var(--progress2), transparent 0);
+}
+
+/* 环形进度条1 */
+.progress-circle1 {
+  width: 160px;
+  height: 160px;
+  border-radius: 50%;
+  background: conic-gradient(#FFCDB2 0 var(--progressCircle1), #B5838D var(--progressCircle1), #B5838D);
+  mask: radial-gradient(transparent, transparent 50%, #000 50%, #000 0);
+  -webkit-mask: radial-gradient(transparent, transparent 50%, #000 50%, #000 0);
+}
+
+/* 球形进度条 */
+.wave-container {
+
+}
+</style>
+<body>
+  <div>进度条1:</div>
+  <div class="progress1">  <!--进度条1-->
+    <div class="progress1-in" style="--progress1: 35%"></div>
+  </div>
+  <p></p>
+  <div>进度条2:</div>
+  <div class="progress2"  style="--progress2: 35%">  <!--进度条2-->
+  </div>
+  <p></p>
+  <div>环形进度条1:</div>
+  <div class="progress-circle1"  style="--progressCircle1: 35.2%">
+  </div>
+  <div>球形进度条:</div>
+  <div class="wave-container">
+    <div class="wave-change"></div>
+    <div class="wave"></div>
+</div>
+</body>
+</html>

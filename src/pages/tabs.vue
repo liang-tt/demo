@@ -1,7 +1,7 @@
 <template>
   <div>
     <el-tabs type="border-card" @tab-click="skipTo">
-      <el-tab-pane v-for="item in paths" :name="item.path" :label="item.label"></el-tab-pane>
+      <el-tab-pane v-for="(item,index) in paths" :key="index" :name="item.path" :label="item.label"></el-tab-pane>
         <router-view></router-view>
     </el-tabs>
 

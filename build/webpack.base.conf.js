@@ -3,6 +3,7 @@ const path = require('path')
 const utils = require('./utils')
 const config = require('../config')
 const vueLoaderConfig = require('./vue-loader.conf')
+const { name } = require('../package');
 var webpack = require('webpack')
 require('babel-polyfill');
 
@@ -17,18 +18,27 @@ module.exports = {
   entry: {
     app: ['babel-polyfill', './src/main.js']
   },
+  devServer: {
+    headers: {
+      'Access-Control-Allow-Origin': '*',
+    },
+  },
   output: {
     path: config.build.assetsRoot,
     filename: '[name].js',
     publicPath: process.env.NODE_ENV === 'production'
       ? config.build.assetsPublicPath
-      : config.dev.assetsPublicPath
+      : config.dev.assetsPublicPath,
+    library: `${name}-[name]`,
+    libraryTarget: 'umd', // 把微应用打包成 umd 库格式
+    jsonpFunction: `webpackJsonp_${name}`,
   },
   resolve: {
     extensions: ['.js', '.vue', '.json'],
     alias: {
       'vue$': 'vue/dist/vue.esm.js',
       '@': resolve('src'),
+      '@common': resolve('src/common'),
     }
   },
   plugins: [

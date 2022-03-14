@@ -3,6 +3,9 @@
 <template>
   <div>
     <div id="container" type="text/plain"></div>
+    <el-form>
+      <el-input></el-input>
+    </el-form>
   </div>
 
 </template>

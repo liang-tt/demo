@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title></title>
+    <style type="text/css">
+        * {
+            margin:0;
+            padding:0;
+        }
+        div {
+            width: 200px;
+            height: 200px;
+            background-color: #ccc;
+        }
+    </style>
+</head>
+<body>
+    <div id="rect"></div>
+    <p id="help">Helpful notes will appear here</p>
+<p>E-mail: <input type="text" id="email" name="email"></p>
+<p>Name: <input type="text" id="name" name="name"></p>
+<p>Age: <input type="text" id="age" name="age"></p>
+    <script type="text/javascript">
+    window.requestAnimationFrame = window.requestAnimationFrame || window.mozRequestAnimationFrame || window.webkitRequestAnimationFrame ||
+    window.msRequestAnimationFrame;
+
+    let elem = document.getElementById("rect");
+    let left = 0;
+    //自动执行持续性回调
+    requestAnimationFrame(step);
+    //持续该改变元素位置
+    function step() {
+        if(left<window.innerWidth-200){
+            left+=1;
+            elem.style.marginLeft = left+"px";
+            requestAnimationFrame(step);
+        }
+    }
+
+    function showHelp(help) {
+  document.getElementById('help').innerHTML = help;
+}
+
+
+
+//闭包
+function setupHelp() {
+  var helpText = [
+      {'id': 'email', 'help': 'Your e-mail address'},
+      {'id': 'name', 'help': 'Your full name'},
+      {'id': 'age', 'help': 'Your age (you must be over 16)'}
+    ];
+  for (var i = 0; i < helpText.length; i++) {
+    var item = helpText[i];
+    console.log(i+ ', '+item.help)
+    document.getElementById(item.id).onfocus = function() {
+      console.log(item)
+      showHelp(item.help);
+    }
+  }
+}
+
+setupHelp();
+
+var getRow = function(rowIndex) {
+    if(rowIndex===0) {
+        return [1]
+    } else {
+        return pascalTriangle(rowIndex)[rowIndex];
+    }
+
+
+    function pascalTriangle(rowIndex) {
+      debugger
+        console.log(rowIndex)
+        let index = rowIndex + 1;
+        if(index  === 1) {
+            return [[1]];
+        }
+        let indexPreArr = [];
+        indexPreArr =  pascalTriangle(rowIndex-1);
+        console.log(indexPreArr)
+        let indexArr = [1];
+        for(let i = 1; i < Math.ceil(index/2); i++) {
+            indexArr[i] = indexPreArr[rowIndex-1][i-1] + indexPreArr[rowIndex-1][i];
+        }
+        console.log(indexArr)
+        let lastArr = JSON.parse(JSON.stringify(indexArr)).reverse();
+        if(index%2 > 0 ) {
+            lastArr.splice(0,1);
+        }
+        indexArr = indexArr.concat(lastArr);
+        console.log(indexArr)
+        indexPreArr.push(indexArr)
+        return indexPreArr;
+    }
+};
+console.log(getRow(3));
+    </script>
+</body>
+</html>
