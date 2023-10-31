@@ -24,6 +24,7 @@ class Store {
   commit(type, payload) {
     console.log(this)
     const entry = this._mutations[type];
+    console.log(entry)
     if(entry) {
       entry(this.state, payload)
     }
@@ -33,8 +34,9 @@ class Store {
   //type actions的类型
   //payload 载荷，是参数
   dispatch(type, payload) {
-    console.log(type,this)
+    console.log(type,payload,this)
     const entry = this._actions[type];
+    console.log(entry)
     if(entry) {
       entry(this, payload)
     }

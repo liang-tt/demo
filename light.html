@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title></title>
+    <style>
+        .containr {
+          background: black;
+          width: 400px;
+          height: 400px;
+          margin-top: 50px;
+          margin-left: 50px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+        }
+        #btn {
+          color: cyan;
+          padding: 20px;
+          position: relative;
+          overflow: hidden;
+          box-sizing: border-box;
+          z-index: 10;
+        }
+        #btn::before {
+          content: '';
+          position: absolute;
+          width: calc(100% - 2px);
+          height: calc(100% - 2px);
+          left: 1px;
+          top: 1px;
+          background: white;
+          z-index: -1;
+        }
+        #btn::after {
+          content: '';
+          position: absolute;
+          width: 150%;
+          height: 20px;
+          left: -20%;
+          background: cyan;
+          z-index: -2;
+          animation: animate1 2s infinite;
+        }
+        @keyframes animate1 {
+          from {
+            transform: rotate(0deg);
+          }
+          to {
+            transform: rotate(360deg);
+          }
+        }
+    </style>
+</head>
+<body>
+    <div class="containr">
+      <div id="btn">NEON BUTTON</div>
+    </div>
+    <div></div>
+</body>
+</html>

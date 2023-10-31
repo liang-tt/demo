@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>css属性mix-blend-mode:difference</title>
+    <style>
+.mode {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    mix-blend-mode:color;
+}
+  .dark {
+    position: relative;
+    left: 6px;
+    height: 24px;
+    width: 24px;
+    background-color: grey;
+    border-radius: 50%;
+}
+.light {
+    mix-blend-mode:difference;
+    position: relative;
+    left: -6px;
+    height: 16px;
+    width: 16px;
+    border-radius: 50%;
+    border: 4px solid grey;
+}
+
+/* <!--  使用 backdrop-filter 实现首屏置灰遮罩 --> */
+.content {
+  position: relative;
+  width: 100%;
+  height: 100px;
+  color: red;
+  overflow-y: auto;
+}
+.content::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: 10;
+  backdrop-filter: grayscale(95%);
+  pointer-events: none; /*保证页面交互 */
+}
+
+.content1 {
+  position: relative;
+  width: 100%;
+  height: 100px;
+  color: red;
+  overflow-y: auto;
+  background-color: #fff;
+}
+.content1::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: 10;
+  pointer-events: none; /*保证页面交互 */
+  mix-blend-mode: color;
+  background-color: rgba(0, 0, 0, 1);
+}
+    </style>
+</head>
+<body>
+    <div class="mode">
+      <div class="dark"></div>
+      <div class="light"></div>
+    </div>
+
+    <!--  使用 backdrop-filter 实现首屏置灰遮罩 -->
+    <h1>使用 backdrop-filter 实现首屏置灰遮罩</h1>
+    <div class="content">
+      <div>fsdgfdgfdgfg</div>
+      <div>fsdgfdgfdgfg</div>
+      <div>fsdgfdgfdgfg</div>
+      <div>fsdgfdgfdgfg</div>
+      <div>fsdgfdgfdgfg</div>
+      <div>fsdgfdgfdgfg</div>
+      <div>fsdgfdgfdgfg</div>
+      <div>fsdgfdgfdgfg</div>
+      <div>fsdgfdgfdgfg</div>
+    </div>
+    <h1>使用 mix-blend-mode 实现首屏置灰遮罩</h1>
+    <!--  使用 mix-blend-mode 实现首屏置灰遮罩 -->
+    <div class="content1">
+      <div>fsdgfdgfdgfg</div>
+      <div>fsdgfdgfdgfg</div>
+      <div>fsdgfdgfdgfg</div>
+      <div>fsdgfdgfdgfg</div>
+      <div>fsdgfdgfdgfg</div>
+      <div>fsdgfdgfdgfg</div>
+      <div>fsdgfdgfdgfg</div>
+      <div>fsdgfdgfdgfg</div>
+      <div>fsdgfdgfdgfg</div>
+    </div>
+</body>
+</html>

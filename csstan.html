@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CSS获取字体大小</title>
+    <style>
+        @property --font {
+          syntax: "<length>";
+          initial-value: 1px;
+          inherits: false;
+        }
+        :root{
+          font-size: max(12px, min( 12px + (100vw - 320px) / 55 * 4, 20px ));
+        }
+        body::after{
+          --font: 1rem; /*定义好的CSS变量*/
+          --px-font: tan(atan2(var(--font), 1px));
+          counter-reset: font var(--px-font);
+          content: "当前根字号：" counter(font);
+        }
+    </style>
+</head>
+<body>
+
+</body>
+</html>

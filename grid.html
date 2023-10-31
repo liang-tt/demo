@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>grid(一行三个div，左右固定宽度。。中间自适应)</title>
+</head>
+<style>
+  .square {
+    display: flex;
+  }
+  .square div {
+    border: 1px solid;
+  }
+  .div1 {
+    width: 100px;
+  }
+  .div2 {
+    flex: 1;
+  }
+
+  .girdBox {
+    display: grid;
+    grid-template-columns: 100px auto 100px;
+    column-gap: 20px;
+  }
+  .girdBox div {
+    border: 1px solid;
+  }
+
+  .girdBox1 {
+    /* width: 300px; */
+     display: grid;
+     grid-template-columns: 50px 200px;
+  }
+
+</style>
+<body>
+  <h1>flex实现</h1>
+  <div class="square">
+    <div class="div1">dfs</div>
+    <div class="div2">dfs</div>
+    <div class="div1">433444</div>
+  </div>
+  <h1>grid实现</h1>
+  <div class="girdBox">
+    <div>dfs</div>
+    <div>dfs</div>
+    <div>433444</div>
+  </div>
+  <div class="girdBox1">
+    <div>title:</div>
+    <div>dsvdsffdffrfr</div>
+  </div>
+</body>
+</html>

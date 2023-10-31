@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.bootcss.com/html2canvas/0.5.0-beta4/html2canvas.js"></script>
+    <title>CSS状态管理</title>
+    <style>
+        *{
+            padding: 0;
+            margin: 0;
+        }
+      .body {
+        height: 500px;
+        width: 100%;
+        background: yellow;
+      }
+
+      .body.red {
+        background: red;
+        color: white;
+      }
+
+    </style>
+</head>
+<body>
+  <div class="body red">
+    <button id="toggle">切换按钮</button>
+
+    我是文字我是文字我是文字我是文字我是文字我是文字我是文字我是文字我是文字我是文字我是文字我是文字我是文字我是文字我是文字我是文字我是文字我是文字我是文字我是文字我是文字我是文字我是文字我是文字我是文字我是文字我是文字我是文字我是文字我是文字我是文字我是文字我是文字我是文字我是文字我是文字我是文字我是文字我是文字我是文字我是文字我是文字我是文字我是文字我是文字我是文字我是文字我是文字我是文字我是文字
+  </div>
+  <img id="result">
+</body>
+<script>
+
+      // 使用的元素
+      const body = document.body;
+      const btn = document.getElementById("toggle");
+      const box = document.getElementsByClassName("body")[0];
+      const imgBox = document.getElementById("result");
+      let key = true;
+      let loading = false;
+      let speed=20;
+
+      // 按钮点击事件
+      btn.addEventListener("click", function () {
+        if (loading) {
+          return false;
+        }
+        loading = true;
+        //获取到当前元素的高度
+        var getHeight = body.clientHeight;
+        var getWidth = body.clientWidth;
+        html2canvas(body, {
+          backgroundColor: null,
+          //   height: getHeight,
+          //   width:getWidth
+        }).then((canvas) => {
+          let dataURL = canvas.toDataURL("image/png");
+          //   imgBox.src = dataURL;
+          if (key) {
+            box.classList.add("red");
+            key = false;
+          } else {
+            box.classList.remove("red");
+            key = true;
+          }
+          handleCanvas(canvas, {
+            height: getHeight,
+            width: getWidth,
+          });
+        });
+      });
+
+      // canvas 处理
+      function handleCanvas(img, opt) {
+        const canvas = document.createElement("canvas");
+        const style = {
+          position: "fixed",
+          top: 0,
+          left: 0,
+          //   width: opt.width+'px',
+          //   height: opt.height+'px',
+          pointerEvents: "none",
+        };
+        Object.assign(canvas.style, style);
+        canvas.width = opt.width;
+        canvas.height = opt.height;
+        ctx = canvas.getContext("2d");
+
+        ctx.drawImage(img, 0, 0);
+        // ctx.fillStyle = "#FF0000";
+        // ctx.fillRect(0, 0, 150, 75);
+        body.appendChild(canvas);
+        draw9(ctx, canvas);
+      }
+
+      let widthMax = 0;
+
+      function draw9(canvas, dom) {
+        widthMax += speed;
+        var ctx = canvas;
+        ctx.globalCompositeOperation = "destination-over";
+        ctx.save();
+        ctx.clearRect(0, 0, widthMax, widthMax); // clear canvas
+        //   ctx.fillStyle = 'green';
+        //   ctx.strokeStyle = 'blueviolet';
+        //   ctx.save();
+        //   ctx.translate(180,180);
+        //   ctx.beginPath();
+        //   ctx.arc(0,0,150,0,Math.PI*2,false);
+        //   ctx.stroke();
+        //   var time = new Date();
+        //   ctx.rotate( ((2*Math.PI)/60)*time.getSeconds() + ((2*Math.PI)/60000)*time.getMilliseconds() )
+        ctx.beginPath();
+        // ctx.arc(50, 50, widthMax, 0, Math.PI * 2, true);
+        //   ctx.stroke();
+        // context.clip();
+        ctx.closePath();
+        ctx.restore();
+        if (widthMax > body.clientWidth) {
+          body.removeChild(dom);
+          widthMax = 0;
+          loading = false;
+          return false;
+        }
+        window.requestAnimationFrame(draw9.bind(this, ctx, dom));
+      }
+      // window.requestAnimationFrame(draw9);
+
+</script>
+
+</html>

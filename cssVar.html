@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CSS状态管理</title>
+    <style>
+        @keyframes statement {
+            0% {
+                --state: initial;
+            }
+
+            1%, 100% {
+                --state: ;
+            }
+        }
+
+        .zero2one {
+            background: rgba(222 222 255 / 0.125);
+            border: 1px solid #eee;
+            display: inline-block;
+        }
+
+        li {
+            list-style: none;
+            display: inline-block;
+            margin: 0;
+            padding: 0;
+            width: 30px;
+            height: 3px;
+            float: left;
+            --bg-color: var(--state) green;
+            background: var(--bg-color, transparent);
+            animation: statement 1ms linear 1 forwards paused;
+        }
+
+        li:hover {
+            animation-play-state: running;
+        }
+    </style>
+</head>
+<body>
+    <ul class="zero2one">
+      <li></li>
+      <li></li>
+      <li></li>
+      <li></li>
+      <li></li>
+      <li></li>
+      <li></li>
+      <li></li>
+      <li></li>
+      <!-- 此处省略 10000个li标签 -->
+    </ul>
+</body>
+</html>
